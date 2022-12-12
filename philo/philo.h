@@ -6,7 +6,7 @@
 /*   By: rhong <rhong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:55:10 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/12 16:11:04 by rhong            ###   ########.fr       */
+/*   Updated: 2022/12/12 21:07:37 by rhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,33 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-typedef struct s_philo_data
+# define GAME_OVER	1
+# define ON_GAME	0
+
+typedef struct s_philo
+{
+	pthread_t	*id;
+	int			*name;
+	int			left_hand;
+	int			right_hand;
+	int			eat_count;
+}	t_philo;
+
+typedef struct s_monitor
 {
 	int				philo_num;
-	//pthread_t		*philos;
-	//pthread_mutex_t	*forks;
-	unsigned long	time_d;
-	unsigned long	time_e;
-	unsigned long	time_s;
+	size_t			time_d;
+	size_t			time_e;
+	size_t			time_sl;
+	size_t			time_th;
 	int				eat_limit;
-}	t_philo_data;
+	size_t			time_st;
+	t_philo			*philos;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	game_over;
+}	t_monitor;
 
-typedef struct s_philosopher
-{
-	int	*name;
-	int	left_hand;
-	int	right_hand;
-}	t_philosopher;
+void	*ft_calloc(size_t count, size_t size);
+int		ft_atoi(const char *str);
 
 #endif
