@@ -6,7 +6,7 @@
 /*   By: rhong <rhong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:55:10 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/08 18:58:14 by rhong            ###   ########.fr       */
+/*   Updated: 2022/12/12 16:11:04 by rhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,20 @@
 
 typedef struct s_philo_data
 {
-	int	philo_num;
-	int	time_d;
-	int	time_e;
-	int	time_s;
-	int	eat_limit;
-} t_philo_data;
+	int				philo_num;
+	//pthread_t		*philos;
+	//pthread_mutex_t	*forks;
+	unsigned long	time_d;
+	unsigned long	time_e;
+	unsigned long	time_s;
+	int				eat_limit;
+}	t_philo_data;
+
+typedef struct s_philosopher
+{
+	int	*name;
+	int	left_hand;
+	int	right_hand;
+}	t_philosopher;
 
 #endif
