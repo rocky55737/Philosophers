@@ -6,7 +6,7 @@
 /*   By: rhong <rhong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:55:10 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/13 13:22:55 by rhong            ###   ########.fr       */
+/*   Updated: 2022/12/13 16:09:17 by rhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_time_table
 
 typedef struct s_philo
 {
-	pthread_t		*id;
+	pthread_t		id;
 	int				name;
 	int				left_hand;
 	int				right_hand;
@@ -64,10 +64,10 @@ typedef struct s_monitor
 }	t_monitor;
 
 size_t			get_start_time(void);
-t_coupon		*init_coupon(char **av);
-t_time_table	*init_time_table(char **av);
+t_monitor		*init_monitor(char **av);
 t_coupon		*dup_coupon(t_coupon *coupon);
 t_time_table	*dup_time_table(t_time_table *time_table);
+void			philo_destroy(t_monitor *monitor);
 
 
 void			*ft_calloc(size_t count, size_t size);
