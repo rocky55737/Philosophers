@@ -6,7 +6,7 @@
 /*   By: rhong <rhong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:55:10 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/12 21:07:37 by rhong            ###   ########.fr       */
+/*   Updated: 2022/12/13 13:22:55 by rhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,33 +20,57 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-# define GAME_OVER	1
-# define ON_GAME	0
+# define LIVE	1
+# define DEAD	0
+# define VALID	1
+# define EXPIRED	0
+
+typedef struct s_coupon
+{
+	int	limit;
+	int	cnt;
+}	t_coupon;
+
+typedef struct s_time_table
+{
+	size_t	time_d;
+	size_t	time_e;
+	size_t	time_sl;
+	size_t	time_th;
+	size_t	time_st;
+}	t_time_table;
 
 typedef struct s_philo
 {
-	pthread_t	*id;
-	int			*name;
-	int			left_hand;
-	int			right_hand;
-	int			eat_count;
+	pthread_t		*id;
+	int				name;
+	int				left_hand;
+	int				right_hand;
+	t_coupon		*coupon;
+	t_time_table	*time_table;
+	int				live_f;
+	int				coupon_f;
 }	t_philo;
 
 typedef struct s_monitor
 {
 	int				philo_num;
-	size_t			time_d;
-	size_t			time_e;
-	size_t			time_sl;
-	size_t			time_th;
-	int				eat_limit;
-	size_t			time_st;
+	t_coupon		*o_coupon;
+	t_time_table	*o_time_table;
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	game_over;
+	pthread_mutex_t	check_alive;
+	pthread_mutex_t	check_coupon;
 }	t_monitor;
 
-void	*ft_calloc(size_t count, size_t size);
-int		ft_atoi(const char *str);
+size_t			get_start_time(void);
+t_coupon		*init_coupon(char **av);
+t_time_table	*init_time_table(char **av);
+t_coupon		*dup_coupon(t_coupon *coupon);
+t_time_table	*dup_time_table(t_time_table *time_table);
+
+
+void			*ft_calloc(size_t count, size_t size);
+int				ft_atoi(const char *str);
 
 #endif
