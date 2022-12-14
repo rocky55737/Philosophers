@@ -6,7 +6,7 @@
 /*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 17:45:11 by rocky             #+#    #+#             */
-/*   Updated: 2022/12/14 17:48:39 by rocky            ###   ########.fr       */
+/*   Updated: 2022/12/14 18:11:47 by rocky            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	a_coupon_valid(t_monitor *monitor)
 
 	cnt = 0;
 	valid_sign = monitor->philo_num;
-	pthread_mutex_lock(&(monitor->check_coupon));
+	pthread_mutex_lock(&(monitor->mutex->check_coupon));
 	while (cnt < monitor->philo_num)
 	{
 		valid_sign -= monitor->philos[cnt].coupon_f;
 		cnt++;
 	}
-	pthread_mutex_unlock(&(monitor->check_coupon));
+	pthread_mutex_unlock(&(monitor->mutex->check_coupon));
 	return (valid_sign);
 }

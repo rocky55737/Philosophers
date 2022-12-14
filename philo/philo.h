@@ -6,7 +6,7 @@
 /*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:55:10 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/14 17:48:59 by rocky            ###   ########.fr       */
+/*   Updated: 2022/12/14 18:08:27 by rocky            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,14 @@ typedef struct s_time_table
 	size_t	time_st;
 }	t_time_table;
 
+typedef	struct s_mutex
+{
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	*check_alive;
+	pthread_mutex_t	*check_coupon;
+}	t_mutex;
+
+
 typedef struct s_philo
 {
 	pthread_t		id;
@@ -48,6 +56,7 @@ typedef struct s_philo
 	int				right_hand;
 	t_coupon		*coupon;
 	t_time_table	*time_table;
+	t_mutex			*mutex;
 	int				live_f;
 	int				coupon_f;
 }	t_philo;
@@ -58,9 +67,7 @@ typedef struct s_monitor
 	t_coupon		*o_coupon;
 	t_time_table	*o_time_table;
 	t_philo			*philos;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	check_alive;
-	pthread_mutex_t	check_coupon;
+	t_mutex			*mutex;
 }	t_monitor;
 
 size_t			get_time_now(void);

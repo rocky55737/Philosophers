@@ -6,7 +6,7 @@
 /*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:52:42 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/14 17:14:00 by rocky            ###   ########.fr       */
+/*   Updated: 2022/12/14 18:11:25 by rocky            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ t_monitor	*init_monitor(char **av)
 	monitor->o_coupon = init_coupon(av);
 	monitor->o_time_table = init_time_table(av);
 	monitor->philos = init_philos(monitor);
-	monitor->forks = init_forks(monitor->philo_num);
-	pthread_mutex_init(&(monitor->check_alive), 0);
-	pthread_mutex_init(&(monitor->check_coupon), 0);
+	monitor->mutex->forks = init_forks(monitor->philo_num);
+	pthread_mutex_init(&(monitor->mutex->check_alive), 0);
+	pthread_mutex_init(&(monitor->mutex->check_coupon), 0);
 	return (monitor);
 }
 
@@ -73,6 +73,7 @@ static t_philo	*init_philos(t_monitor	*monitor)
 		philos[cnt].right_hand = 0;
 		philos[cnt].coupon = dup_coupon(monitor->o_coupon);
 		philos[cnt].time_table = dup_time_table(monitor->o_time_table);
+		philos[cnt].mutex = monitor->mutex;
 		philos[cnt].live_f = LIVE;
 		philos[cnt].coupon_f = VALID;
 		cnt++;

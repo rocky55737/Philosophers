@@ -6,7 +6,7 @@
 /*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:06:44 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/14 17:53:10 by rocky            ###   ########.fr       */
+/*   Updated: 2022/12/14 18:21:38 by rocky            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	philo_game(t_monitor *monitor)
 
 void	philo_life(t_philo philo)
 {
-	while (philo.coupon_f && philo.live_f)
+	while (coupon_valid(philo) && philo_alive(philo))
 	{
 		
 	}
@@ -57,5 +57,30 @@ void	philo_life(t_philo philo)
 
 int	coupon_valid(t_philo philo)
 {
-	
+	pthread_mutex_lock(philo.mutex->check_coupon);
+	if (philo.coupon_f == VALID)
+	{
+		pthread_mutex_unlock(philo.mutex->check_coupon);
+		return (1);
+	}
+	else
+	{
+		pthread_mutex_unlock(philo.mutex->check_coupon);
+		return (0);
+	}
+}
+
+int	philo_alive(t_philo philo)
+{
+	pthread_mutex_lock(philo.mutex->check_alive);
+	if (philo.live_f == LIVE)
+	{
+		pthread_mutex_unlock(philo.mutex->check_alive);
+		return (1);
+	}
+	else
+	{
+		pthread_mutex_unlock(philo.mutex->check_alive);
+		return (0);
+	}
 }

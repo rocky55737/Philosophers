@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_destroy.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhong <rhong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:59:30 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/13 16:09:22 by rhong            ###   ########.fr       */
+/*   Updated: 2022/12/14 18:13:00 by rocky            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ void	philo_destroy(t_monitor *monitor)
 	while (cnt < monitor->philo_num)
 	{
 		pthread_detach(monitor->philos[cnt].id);
-		pthread_mutex_destroy(&(monitor->forks[cnt]));
+		pthread_mutex_destroy(&(monitor->mutex->forks[cnt]));
 		cnt++;
 	}
-	pthread_mutex_destroy(&(monitor->check_alive));
-	pthread_mutex_destroy(&(monitor->check_coupon));
+	pthread_mutex_destroy(&(monitor->mutex->check_alive));
+	pthread_mutex_destroy(&(monitor->mutex->check_coupon));
 	free(monitor->o_coupon);
 	free(monitor->o_time_table);
 	free_philos(monitor->philos, monitor->philo_num);
-	free(monitor->forks);
+	free(monitor->mutex->forks);
 	free(monitor);
 }
 
