@@ -6,7 +6,7 @@
 /*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:52:42 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/14 18:11:25 by rocky            ###   ########.fr       */
+/*   Updated: 2022/12/14 19:34:33 by rocky            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static t_time_table	*init_time_table(char **av)
 	i_time_table->time_sl = (size_t)ft_atoi(av[4]);
 	i_time_table->time_th = i_time_table->time_d - i_time_table->time_e - i_time_table->time_sl;
 	i_time_table->time_st = get_time_now();
+	i_time_table->time_last_e = 0;
 	return (i_time_table);
 }
 
@@ -69,6 +70,7 @@ static t_philo	*init_philos(t_monitor	*monitor)
 	while (cnt < monitor->philo_num)
 	{
 		philos[cnt].name = cnt + 1;
+		philos[cnt].philo_num = monitor->philo_num;
 		philos[cnt].left_hand = 0;
 		philos[cnt].right_hand = 0;
 		philos[cnt].coupon = dup_coupon(monitor->o_coupon);

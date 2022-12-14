@@ -6,7 +6,7 @@
 /*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:06:44 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/14 18:21:38 by rocky            ###   ########.fr       */
+/*   Updated: 2022/12/14 23:17:22 by rocky            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,54 @@ void	philo_game(t_monitor *monitor)
 
 void	philo_life(t_philo philo)
 {
+	size_t	time;
+	size_t	now_time;
 	while (coupon_valid(philo) && philo_alive(philo))
 	{
-		
+		now_time = get_time_now();
+		//dead check
+		pthread_mutex_lock(philo.mutex->check_alive);
+		if (philo.time_table->time_last_e && \
+		now_time - philo.time_table->time_last_e > philo.time_table->time_d)
+			philo.live_f = DEAD; // and return
+		pthread_mutex_unlock(philo.mutex->check_alive);
+		philo.time_table->time_last_e = now_time;
+		//coupon check
+		pthread_mutex_lock(philo.mutex->check_coupon);
+		philo.coupon->cnt++;
+		if (philo.coupon->cnt == philo.coupon->limit)
+			philo.coupon_f = EXPIRED;
+		pthread_mutex_unlock(philo.mutex->check_coupon);
+		//pick fork
+		pthread_mutex_lock(&(philo.mutex->forks[philo.name - 1]));
+		pthread_mutex_lock(&(philo.mutex->forks[philo.name % philo.philo_num]));
+		//print		
+		time = now_time - philo.time_table->time_st;
+		spend_time(philo.time_table->time_e);
+		pthread_mutex_unlock(&(philo.mutex->forks[philo.name - 1]));
+		pthread_mutex_unlock(&(philo.mutex->forks[philo.name % philo.philo_num]));
+
+		//sleep
+		now_time = get_time_now();
+		//dead check
+		pthread_mutex_lock(philo.mutex->check_alive);
+		if (philo.time_table->time_last_e && \
+		now_time - philo.time_table->time_last_e > philo.time_table->time_d)
+			philo.live_f = DEAD; // and return
+		pthread_mutex_unlock(philo.mutex->check_alive);
+		//print
+		spend_time(philo.time_table->time_sl);
+
+		//think
+		now_time = get_time_now();
+		//dead check
+		pthread_mutex_lock(philo.mutex->check_alive);
+		if (philo.time_table->time_last_e && \
+		now_time - philo.time_table->time_last_e > philo.time_table->time_d)
+			philo.live_f = DEAD; // and return
+		pthread_mutex_unlock(philo.mutex->check_alive);
+		//print
+		spend_time(philo.time_table->time_th);
 	}
 }
 

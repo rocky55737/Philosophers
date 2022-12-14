@@ -6,7 +6,7 @@
 /*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:55:10 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/14 18:08:27 by rocky            ###   ########.fr       */
+/*   Updated: 2022/12/14 19:33:28 by rocky            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_time_table
 	size_t	time_sl;
 	size_t	time_th;
 	size_t	time_st;
+	size_t	time_last_e;
 }	t_time_table;
 
 typedef	struct s_mutex
@@ -51,6 +52,7 @@ typedef	struct s_mutex
 typedef struct s_philo
 {
 	pthread_t		id;
+	int				philo_num;
 	int				name;
 	int				left_hand;
 	int				right_hand;
