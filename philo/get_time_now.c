@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   get_start_time.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhong <rhong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:00:14 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/13 13:01:00 by rhong            ###   ########.fr       */
+/*   Updated: 2022/12/14 17:13:08 by rocky            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-size_t	get_start_time(void);
+size_t	get_time_now(void);
 
-size_t	get_start_time(void)
+size_t	get_time_now(void)
 {
-	struct timeval	start_time;
+	struct timeval	time_now;
 
-	gettimeofday(&start_time, 0);
-	return (start_time.tv_sec * 1000 * 100 + start_time.tv_usec);
+	gettimeofday(&time_now, 0);
+	return (time_now.tv_sec * 1000 * 100 + time_now.tv_usec);
 }

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhong <rhong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:06:44 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/13 15:58:59 by rhong            ###   ########.fr       */
+/*   Updated: 2022/12/14 17:53:10 by rocky            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 void	philo(int ac, char **av);
+void	philo_game(t_monitor *monitor);
 
 void	philo(int ac, char **av)
 {
@@ -21,17 +22,6 @@ void	philo(int ac, char **av)
 	monitor = init_monitor(av);
 	philo_game(monitor);
 	philo_destroy(monitor);
-}
-
-void	philo_destroy(t_monitor *monitor)
-{
-	//detach all
-	//mutex destroy
-	//free all
-	free(monitor->o_coupon);
-	free(monitor->o_time_table);
-	free_philos(monitor->philos, monitor->philo_num);
-	free(monitor);
 }
 
 void	philo_game(t_monitor *monitor)
@@ -52,17 +42,20 @@ void	philo_game(t_monitor *monitor)
 			pthread_create(&(monitor->philos[cnt].id), 0, philo_life, &(monitor->philos[cnt]));
 		cnt--;
 	}
-	while (coupon_valid(monitor->philos) && philo_alive(monitor->philos))
+	while (a_coupon_valid(monitor) && a_philo_alive(monitor))
 	{
 	}
 }
 
-void	philo_life()
+void	philo_life(t_philo philo)
 {
-//	whlie
-//	{
-//		eat;
-//		sleep;
-//		think;
-//	}
+	while (philo.coupon_f && philo.live_f)
+	{
+		
+	}
+}
+
+int	coupon_valid(t_philo philo)
+{
+	
 }

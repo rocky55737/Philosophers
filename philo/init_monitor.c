@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_monitor.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhong <rhong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:52:42 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/13 14:59:19 by rhong            ###   ########.fr       */
+/*   Updated: 2022/12/14 17:14:00 by rocky            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static t_time_table	*init_time_table(char **av)
 	i_time_table->time_e = (size_t)ft_atoi(av[3]);
 	i_time_table->time_sl = (size_t)ft_atoi(av[4]);
 	i_time_table->time_th = i_time_table->time_d - i_time_table->time_e - i_time_table->time_sl;
-	i_time_table->time_st = get_start_time();
+	i_time_table->time_st = get_time_now();
 	return (i_time_table);
 }
 

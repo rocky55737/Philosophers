@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhong <rhong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:55:10 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/13 16:09:17 by rhong            ###   ########.fr       */
+/*   Updated: 2022/12/14 17:48:59 by rocky            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,15 @@ typedef struct s_monitor
 	pthread_mutex_t	check_coupon;
 }	t_monitor;
 
-size_t			get_start_time(void);
+size_t			get_time_now(void);
 t_monitor		*init_monitor(char **av);
 t_coupon		*dup_coupon(t_coupon *coupon);
 t_time_table	*dup_time_table(t_time_table *time_table);
+int				a_coupon_valid(t_monitor *monitor);
+int				a_philo_alive(t_monitor *monitor);
 void			philo_destroy(t_monitor *monitor);
+
+void			spend_time(size_t time);
 
 
 void			*ft_calloc(size_t count, size_t size);
