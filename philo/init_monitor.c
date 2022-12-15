@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_monitor.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rhong <rhong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:52:42 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/14 19:34:33 by rocky            ###   ########.fr       */
+/*   Updated: 2022/12/15 14:39:57 by rhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ t_monitor				*init_monitor(char **av);
 static t_coupon			*init_coupon(char **av);
 static t_time_table		*init_time_table(char **av);
 static t_philo			*init_philos(t_monitor	*monitor);
-static pthread_mutex_t	*init_forks(int philo_num);
 
 t_monitor	*init_monitor(char **av)
 {
@@ -26,10 +25,8 @@ t_monitor	*init_monitor(char **av)
 	monitor->philo_num = ft_atoi(av[1]);
 	monitor->o_coupon = init_coupon(av);
 	monitor->o_time_table = init_time_table(av);
+	monitor->mutex = init_mutex(monitor->philo_num);
 	monitor->philos = init_philos(monitor);
-	monitor->mutex->forks = init_forks(monitor->philo_num);
-	pthread_mutex_init(&(monitor->mutex->check_alive), 0);
-	pthread_mutex_init(&(monitor->mutex->check_coupon), 0);
 	return (monitor);
 }
 
@@ -39,7 +36,7 @@ static t_coupon	*init_coupon(char **av)
 
 	i_coupon = (t_coupon *)ft_calloc(1, sizeof(t_coupon));
 	i_coupon->cnt = 0;
-	if (av[6])
+	if (av[5])
 		i_coupon->limit = ft_atoi(av[5]);
 	else
 		i_coupon->limit = -1;
@@ -81,19 +78,4 @@ static t_philo	*init_philos(t_monitor	*monitor)
 		cnt++;
 	}
 	return (philos);
-}
-
-static pthread_mutex_t	*init_forks(int philo_num)
-{
-	pthread_mutex_t	*forks;
-	int				cnt;
-
-	forks = (pthread_mutex_t *)ft_calloc(philo_num, sizeof(pthread_mutex_t));
-	cnt = 0;
-	while (cnt < philo_num)
-	{
-		pthread_mutex_init(&(forks[cnt]), 0);
-		cnt++;
-	}
-	return (forks);
 }
