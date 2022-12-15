@@ -6,7 +6,7 @@
 /*   By: rhong <rhong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:55:10 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/15 14:37:59 by rhong            ###   ########.fr       */
+/*   Updated: 2022/12/15 18:34:38 by rhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int				a_philo_alive(t_monitor *monitor);
 void			philo_destroy(t_monitor *monitor);
 
 void			spend_time(size_t time);
+int				philo_is_dead(t_philo *philo);
 
 
 void			*ft_calloc(size_t count, size_t size);

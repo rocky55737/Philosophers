@@ -6,7 +6,7 @@
 /*   By: rhong <rhong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:06:44 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/15 15:46:04 by rhong            ###   ########.fr       */
+/*   Updated: 2022/12/15 18:32:01 by rhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	philo_game(t_monitor *monitor)
 			pthread_create(&(monitor->philos[cnt].id), 0, (void *)philo_life, &(monitor->philos[cnt]));
 		cnt--;
 	}
-	while (a_coupon_valid(monitor) && a_philo_alive(monitor))
+	while (a_philo_alive(monitor) && a_coupon_valid(monitor))
 	{
 		//spend_time(monitor->o_time_table->time_d);
 	}
@@ -58,71 +58,68 @@ void	philo_life(t_philo *philo)
 
 	while (coupon_valid(*philo) && philo_alive(*philo))
 	{
-		now_time = get_time_now();
-		//dead check
-		pthread_mutex_lock(philo->mutex->check_alive);
-		if (philo->time_table->time_last_e && \
-		now_time - philo->time_table->time_last_e > philo->time_table->time_d)
-		{
-			printf("[%ldms] %d philo dead\n", get_time_now() - philo->time_table->time_st, philo->name);
-			philo->live_f = DEAD;
-			pthread_mutex_unlock(philo->mutex->check_alive);
-			return ;
-		}
-		pthread_mutex_unlock(philo->mutex->check_alive);
-		philo->time_table->time_last_e = now_time;
+		//eat
 		//coupon check
-		pthread_mutex_lock(philo->mutex->check_coupon);
 		philo->coupon->cnt++;
-		if (philo->coupon->cnt == philo->coupon->limit)
+		if (philo->coupon->limit != -1 && philo->coupon->cnt == philo->coupon->limit)
 		{
 			printf("[%ldms] %d philo coupon expired\n", get_time_now() - philo->time_table->time_st, philo->name);
+			pthread_mutex_lock(philo->mutex->check_coupon);
 			philo->coupon_f = EXPIRED;
 			pthread_mutex_unlock(philo->mutex->check_coupon);
 			return ;
 		}
-		pthread_mutex_unlock(philo->mutex->check_coupon);
+		now_time = get_time_now();
+		time = now_time - philo->time_table->time_st;
+		//dead check
+		if (philo->time_table->time_last_e && \
+		now_time - philo->time_table->time_last_e > philo->time_table->time_d)
+		{
+			pthread_mutex_lock(philo->mutex->check_alive);
+			printf("[%ldms] %d philo dead\n", get_time_now() - philo->time_table->time_st, philo->name);
+			philo->live_f = DEAD;
+			pthread_mutex_unlock(philo->mutex->check_alive);
+			return ;
+		}
 		//pick fork
 		pthread_mutex_lock(&(philo->mutex->forks[philo->name - 1]));
 		pthread_mutex_lock(&(philo->mutex->forks[philo->name % philo->philo_num]));
 		//print
-		time = now_time - philo->time_table->time_st;
 		printf("[%ldms] %d philo eat\n", time, philo->name);
 		spend_time(philo->time_table->time_e);
 		pthread_mutex_unlock(&(philo->mutex->forks[philo->name - 1]));
 		pthread_mutex_unlock(&(philo->mutex->forks[philo->name % philo->philo_num]));
+		philo->time_table->time_last_e = get_time_now();
 
 		//sleep
 		now_time = get_time_now();
 		//dead check
-		pthread_mutex_lock(philo->mutex->check_alive);
 		if (philo->time_table->time_last_e && \
 		now_time - philo->time_table->time_last_e > philo->time_table->time_d)
 		{
+			pthread_mutex_lock(philo->mutex->check_alive);
 			printf("[%ldms] %d philo dead\n", get_time_now() - philo->time_table->time_st, philo->name);
 			philo->live_f = DEAD;
 			pthread_mutex_unlock(philo->mutex->check_alive);
 			return ;
 		}
-		pthread_mutex_unlock(philo->mutex->check_alive);
 		//print
 		time = now_time - philo->time_table->time_st;
 		printf("[%ldms] %d philo sleep\n", time, philo->name);
-		spend_time(philo->time_table->time_sl / 10 * 9);
+		spend_time(philo->time_table->time_sl);
 
 		//think
 		now_time = get_time_now();
 		//dead check
-		pthread_mutex_lock(philo->mutex->check_alive);
 		if (philo->time_table->time_last_e && \
 		now_time - philo->time_table->time_last_e > philo->time_table->time_d)
 		{
+			pthread_mutex_lock(philo->mutex->check_alive);
 			printf("[%ldms] %d philo dead\n", get_time_now() - philo->time_table->time_st, philo->name);
 			philo->live_f = DEAD;
 			pthread_mutex_unlock(philo->mutex->check_alive);
 			return ;
 		}
-		pthread_mutex_unlock(philo->mutex->check_alive);
 		//print
 		time = now_time - philo->time_table->time_st;
 		printf("[%ldms] %d philo think\n", time, philo->name);

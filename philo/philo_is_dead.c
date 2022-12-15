@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   spend_time.c                                       :+:      :+:    :+:   */
+/*   philo_is_dead.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhong <rhong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/14 17:11:39 by rocky             #+#    #+#             */
-/*   Updated: 2022/12/15 17:12:39 by rhong            ###   ########.fr       */
+/*   Created: 2022/12/15 17:24:59 by rhong             #+#    #+#             */
+/*   Updated: 2022/12/15 17:34:21 by rhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	spend_time(size_t time)
+int	philo_is_dead(t_philo *philo)
 {
-	size_t	be_time;
+	size_t	now_time;
 
-	if (time < 1)
-		return ;
-	be_time = get_time_now() + time;
-	usleep(time / 10 * 7);
-	while (get_time_now() < be_time)
-		usleep(40);
+	now_time = get_time_now();
+	if (philo->time_table->time_last_e && \
+	now_time - philo->time_table->time_last_e > philo->time_table->time_d)
+		return (1);
+	return (0);
 }
