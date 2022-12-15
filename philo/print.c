@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_time_now.c                                     :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 13:00:14 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/16 00:04:58 by rocky            ###   ########.fr       */
+/*   Created: 2022/12/15 22:33:59 by rocky             #+#    #+#             */
+/*   Updated: 2022/12/15 22:36:32 by rocky            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-size_t	get_time_now(void);
-
-size_t	get_time_now(void)
+void	print(t_philo *philo, char *str)
 {
-	struct timeval	time_now;
+	size_t	time;
 
-	gettimeofday(&time_now, 0);
-	return (time_now.tv_sec * 1000 + time_now.tv_usec / 1000);
+	time = get_time_now() - philo->time_table->time_st;
+	pthread_mutex_lock(philo->mutex->print_m);
+	printf("%ldms %d %s\n", time, philo->name, str);
+	pthread_mutex_unlock(philo->mutex->print_m);
 }

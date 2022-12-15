@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhong <rhong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:55:10 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/15 18:34:38 by rhong            ###   ########.fr       */
+/*   Updated: 2022/12/15 22:37:28 by rocky            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef	struct s_mutex
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*check_alive;
 	pthread_mutex_t	*check_coupon;
+	pthread_mutex_t	*print_m;
 }	t_mutex;
 
 
@@ -84,7 +85,8 @@ void			philo_destroy(t_monitor *monitor);
 
 void			spend_time(size_t time);
 int				philo_is_dead(t_philo *philo);
-
+t_philo			*eat(t_philo *philo);
+void			print(t_philo *philo, char *str);
 
 void			*ft_calloc(size_t count, size_t size);
 int				ft_atoi(const char *str);
