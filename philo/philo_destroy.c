@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_destroy.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhong <rhong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:59:30 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/16 16:16:53 by rhong            ###   ########.fr       */
+/*   Updated: 2022/12/17 00:31:01 by rocky            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,13 @@ void	philo_destroy(t_monitor *monitor)
 	}
 	pthread_mutex_destroy(monitor->mutex->m_eat);
 	pthread_mutex_destroy(monitor->mutex->m_dead);
-	free(monitor->o_info);
+	pthread_mutex_destroy(monitor->mutex->m_print);
 	free_philos(monitor->philos, monitor->o_info->philo_num);
+	free(monitor->o_info);
 	free(monitor->mutex->forks);
+	free(monitor->mutex->m_dead);
+	free(monitor->mutex->m_eat);
+	free(monitor->mutex->m_print);
 	free(monitor->mutex);
 	free(monitor);
 }

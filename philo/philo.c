@@ -6,7 +6,7 @@
 /*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:42:44 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/16 23:45:05 by rocky            ###   ########.fr       */
+/*   Updated: 2022/12/17 01:17:23 by rocky            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	monitoring(t_monitor *monitor)
 	pthread_mutex_lock(monitor->mutex->m_dead);
 	while (cnt < monitor->o_info->philo_num)
 	{
-		if (monitor->philos->f_dead)
+		if (monitor->philos[cnt].f_dead)
 			print(&(monitor->philos[cnt]), "is died");
 		pthread_detach(monitor->philos[cnt].id);
 		cnt++;
