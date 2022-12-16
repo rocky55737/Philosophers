@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rhong <rhong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 16:55:10 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/15 22:37:28 by rocky            ###   ########.fr       */
+/*   Created: 2022/12/16 14:37:04 by rhong             #+#    #+#             */
+/*   Updated: 2022/12/16 18:57:59 by rhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,75 +20,66 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-# define LIVE	1
-# define DEAD	0
-# define VALID	1
-# define EXPIRED	0
-
-typedef struct s_coupon
+typedef struct s_info
 {
-	int	limit;
-	int	cnt;
-}	t_coupon;
-
-typedef struct s_time_table
-{
+	int		philo_num;
 	size_t	time_d;
 	size_t	time_e;
 	size_t	time_sl;
 	size_t	time_th;
 	size_t	time_st;
 	size_t	time_last_e;
-}	t_time_table;
+	int		eat_cnt;
+	int		eat_limit;
+}	t_info;
 
-typedef	struct s_mutex
+typedef struct s_mutex
 {
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	*check_alive;
-	pthread_mutex_t	*check_coupon;
-	pthread_mutex_t	*print_m;
+	pthread_mutex_t	*m_dead;
+	pthread_mutex_t	*m_eat;
+	pthread_mutex_t	*m_print;
 }	t_mutex;
-
 
 typedef struct s_philo
 {
-	pthread_t		id;
-	int				philo_num;
-	int				name;
-	int				left_hand;
-	int				right_hand;
-	t_coupon		*coupon;
-	t_time_table	*time_table;
-	t_mutex			*mutex;
-	int				live_f;
-	int				coupon_f;
+	pthread_t	id;
+	int			name;
+	t_info		*info;
+	t_mutex		*mutex;
+	int			f_dead;
+	int			f_eat;
 }	t_philo;
 
 typedef struct s_monitor
 {
-	int				philo_num;
-	t_coupon		*o_coupon;
-	t_time_table	*o_time_table;
-	t_philo			*philos;
+	t_info			*o_info;
 	t_mutex			*mutex;
+	t_philo			*philos;
 }	t_monitor;
 
-void			philo(int ac, char **av);
-size_t			get_time_now(void);
-t_monitor		*init_monitor(char **av);
-t_mutex			*init_mutex(int philo_num);
-t_coupon		*dup_coupon(t_coupon *coupon);
-t_time_table	*dup_time_table(t_time_table *time_table);
-int				a_coupon_valid(t_monitor *monitor);
-int				a_philo_alive(t_monitor *monitor);
-void			philo_destroy(t_monitor *monitor);
+void		philo(char **av);
+t_monitor	*init_monitor(char **av);
+t_monitor	*philo_game(t_monitor *monitor);
+void		monitoring(t_monitor *monitor);
+void		philo_destroy(t_monitor *monitor);
+void		philo_life(t_philo *philo);
+t_philo		*eat(t_philo *philo);
 
-void			spend_time(size_t time);
-int				philo_is_dead(t_philo *philo);
-t_philo			*eat(t_philo *philo);
-void			print(t_philo *philo, char *str);
+int			ph_input_err_handler(int ac, char **av);
+int			philo_eat_enough(t_philo *philo);
+int			philo_is_dead(t_philo *philo);
+int			e_philo_alive(t_monitor *monitor);
+int			a_eat_enough(t_monitor *monitor);
 
-void			*ft_calloc(size_t count, size_t size);
-int				ft_atoi(const char *str);
+t_info		*dup_info(t_info *info);
+size_t		get_time_now(void);
+void		spend_time(size_t time);
+void		spend_time2(size_t now_time, size_t time);
+void		print(t_philo *philo, char *str);
+
+int			ft_atoi(const char *str);
+void		*ft_calloc(size_t count, size_t size);
+int			str_is_integer(char *str);
 
 #endif

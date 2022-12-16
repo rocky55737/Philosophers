@@ -6,7 +6,7 @@
 /*   By: rhong <rhong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:02:10 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/08 17:15:41 by rhong            ###   ########.fr       */
+/*   Updated: 2022/12/16 17:11:06 by rhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	main(int ac, char **av)
 {
-	//if (ph_input_err_handler(ac, av))
-	//{
-		//write(2, "input err\n", 10);
-		//return (1);
-	//}
-	philo(ac, av);
+	if (ph_input_err_handler(ac, av))
+	{
+		write(2, "input err\n", 10);
+		return (1);
+	}
+	philo(av);
 	return (0);
 }
