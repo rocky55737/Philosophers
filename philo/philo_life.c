@@ -6,7 +6,7 @@
 /*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 15:14:19 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/16 23:05:05 by rocky            ###   ########.fr       */
+/*   Updated: 2022/12/17 00:02:58 by rocky            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int		philo_is_dead(t_philo *philo);
 
 void	philo_life(t_philo *philo)
 {
-	size_t	time;
-
 	while (!philo_is_dead(philo))
 	{
 		if (philo_is_dead(philo))
@@ -58,7 +56,7 @@ int	philo_is_dead(t_philo *philo)
 	if (!philo->info->time_last_e)
 		return (0);
 	now_time = get_time_now();
-	if (now_time - philo->info->time_last_e <= philo->info->time_d);
+	if (now_time - philo->info->time_last_e <= philo->info->time_d)
 		return (0);
 	pthread_mutex_lock(philo->mutex->m_dead);
 	philo->f_dead = 1;

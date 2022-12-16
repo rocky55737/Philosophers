@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhong <rhong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:42:44 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/16 17:14:31 by rhong            ###   ########.fr       */
+/*   Updated: 2022/12/16 23:45:05 by rocky            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,13 @@ void	monitoring(t_monitor *monitor)
 		}
 	}
 	cnt = 0;
+	pthread_mutex_lock(monitor->mutex->m_dead);
 	while (cnt < monitor->o_info->philo_num)
 	{
-		if (philo_is_dead(&(monitor->philos[cnt])))
+		if (monitor->philos->f_dead)
 			print(&(monitor->philos[cnt]), "is died");
 		pthread_detach(monitor->philos[cnt].id);
 		cnt++;
 	}
+	pthread_mutex_unlock(monitor->mutex->m_dead);
 }
