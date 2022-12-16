@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   eat.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhong <rhong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 21:46:04 by rocky             #+#    #+#             */
-/*   Updated: 2022/12/16 18:39:39 by rhong            ###   ########.fr       */
+/*   Updated: 2022/12/16 23:20:21 by rocky            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ static void	do_eat(t_philo *philo)
 	print(philo, "has taken a fork");
 	print(philo, "is eating");
 	now_time = get_time_now();
-	pthread_mutex_lock(philo->mutex->m_dead);
 	philo->info->time_last_e = get_time_now();
-	pthread_mutex_unlock(philo->mutex->m_dead);
 	spend_time2(now_time, philo->info->time_e);
 	put_fork(philo);
 	//pthread_mutex_unlock(&(philo->mutex->forks[philo->name - 1]));

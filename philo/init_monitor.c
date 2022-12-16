@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_monitor.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhong <rhong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:52:42 by rhong             #+#    #+#             */
-/*   Updated: 2022/12/16 15:24:20 by rhong            ###   ########.fr       */
+/*   Updated: 2022/12/16 22:58:31 by rocky            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ static t_philo	*init_philos(t_monitor	*monitor)
 	while (cnt < philo_num)
 	{
 		philos[cnt].name = cnt + 1;
+		philos[cnt].f_dead = 0;
+		philos[cnt].f_eat = 0;
 		philos[cnt].info = dup_info(monitor->o_info);
 		philos[cnt].mutex = monitor->mutex;
 		cnt++;
