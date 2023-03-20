@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   a_eat_enough.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rocky <rocky@student.42.fr>                +#+  +:+       +#+        */
+/*   By: taehooki <taehooki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 17:45:11 by rocky             #+#    #+#             */
-/*   Updated: 2022/12/16 23:47:59 by rocky            ###   ########.fr       */
+/*   Updated: 2023/03/20 16:14:31 by taehooki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	a_eat_enough(t_monitor *monitor)
 {
 	int	cnt;
-	int eat_f_cnt;
+	int	eat_f_cnt;
 
 	eat_f_cnt = 0;
 	cnt = 0;
